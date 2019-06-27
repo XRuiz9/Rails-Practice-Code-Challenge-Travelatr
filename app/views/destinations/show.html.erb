@@ -1,0 +1,18 @@
+<h1><%= @destination.name %></h1>
+
+<h3>Most Recent Posts:</h3>
+	<% if @destination.posts != [] %>
+		<ul>
+			<% @destination.posts.sort_by{|post| post.updated_at}.reverse[0..5].each do |post| %>
+				<li><%= link_to post.title, post_path(post) %></li>
+			<% end %>
+		</ul>
+	<% else %>
+		<h4>There are no posts about this destination.</h4>
+	<% end %>
+
+
+<% if @destination.posts != [] %>
+	<h3>Featured Post: <%= @destination.posts.sort_by{|post| post.likes}.reverse[0].title %></h3>
+	<h3>Blogger's Average Age: <%= @destination.bloggers.uniq.map{|blogger| blogger.age}.sum/@destination.bloggers.uniq.count %></h3>
+<% end %>

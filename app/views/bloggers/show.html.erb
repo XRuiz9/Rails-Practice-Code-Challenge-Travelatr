@@ -1,0 +1,14 @@
+<h1><%= @blogger.name %></h1>
+
+<h3>Total Likes: <%= @blogger.posts.map{|post| post.likes}.sum %></h3>
+<h3><% if @blogger.posts != [] %>
+		Most Liked Post: <%= @blogger.posts.sort_by{|post| post.likes}.reverse[0].title %><br><br>
+		Popular Destinations: 
+		<ul><% @blogger.destinations.sort_by{|dest| dest.posts.count}.reverse[0..4].each do |dest|%>
+			<li><%= link_to dest.name, destination_path(dest) %></li>
+		<% end %>
+	</ul>
+	<% else %>
+		This blogger hasn't posted yet.
+	<% end %>
+</h3>
